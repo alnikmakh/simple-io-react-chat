@@ -11,15 +11,21 @@ let nick;
 class App extends Component {
   constructor() {
     super();
-    this.state = { nick: "", msg: "", chat: [] };
+    this.state = { nick: "", msg: "", chat: [], users: [] };
   }
   // I dont use .bind for functions below because i use "arrow functions"
   componentDidMount() {
     socket.on("chat message", (msg) => {
       this.setState({
         chat: [...this.state.chat, msg]
+      });  
+    });
+    socket.on("update", (users) => {
+      this.setState({
+        users: users
       });
     });
+    
   };
   
   // Function for getting text input
@@ -32,14 +38,21 @@ class App extends Component {
   };
   
   onNickSubmit = () => {
-    const id = window.location.pathname.slice(1);
+    const response = {
+      id : window.location.pathname.slice(1),
+      nick: nick
+    };
     this.setState({ nick: nick });
-    socket.emit("login", id);
+    socket.emit("login", response);
   };
   
   onSubmitLogin = () => {
+    const response = {
+      id : socket.id,
+      nick: nick
+    };
    this.setState({ nick: nick });
-   socket.emit("login", socket.id);
+   socket.emit("login", response);
  };
   // Function for sending message to chat server
   onMessageSubmit = () => {
@@ -62,6 +75,16 @@ class App extends Component {
       </div>
     ));
   };
+  
+  renderOnline() {
+    const { users }  = this.state;
+    //idx of each element of chat, need for generate key for each JSX tag
+    return users.map((nick, idx) => (
+      <div key={idx}>
+        <span style={{ color: "grey" }}>{nick} </span>      
+      </div>
+    ));
+  };
 
   render() {
     return (
@@ -78,7 +101,7 @@ class App extends Component {
           if (!this.state.nick) {
             return <Login onNickChange = {this.onNickChange} onNickSubmit = {this.onNickSubmit}/>;
           } else {
-            return <Chat onTextChange = {this.onTextChange} onMessageSubmit = {this.onMessageSubmit} state = {this.state} renderChat = {this.renderChat}/>;
+            return <Chat onTextChange = {this.onTextChange} onMessageSubmit = {this.onMessageSubmit} state = {this.state} renderChat = {this.renderChat} users = {this.state.users} renderOnline = {this.renderOnline}/>;
           }
          }  
         } />
