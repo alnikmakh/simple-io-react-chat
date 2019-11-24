@@ -1,7 +1,9 @@
 import React from "react";
 import { Component } from "react";
 import io from "socket.io-client";
-
+import { Redirect, Route, BrowserRouter as Router } from "react-router-dom";
+import Login from "./Login";
+import Chat from "./Chat";
 //const socket = io.connect("https://server-io-chat.herokuapp.com/");
 const socket = io.connect("http://localhost:5000");
 let nick;
@@ -56,17 +58,22 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <span>{this.state.nick ? this.state.nick : "Enter your nickname"}</span>
-        {this.state.nick ? null : <input onChange={e => this.onNickChange(e)} />}
-        {this.state.nick ? null : <button onClick={this.onNickSubmit}>Ok</button>}
-
-        {this.state.nick ? <input onChange={e => this.onTextChange(e)} value={this.state.msg} /> : null }
-        {this.state.nick ? <button onClick={this.onMessageSubmit}>Send</button> : null }
-        {this.state.nick ? <div>{this.renderChat()}</div> : null }
-      </div>
+      <Router>
+        <Route exact path="/" render = {(props) => {
+          if (!this.state.nick) {
+            return <Login onNickChange = {this.onNickChange} onNickSubmit = {this.onNickSubmit}/>;
+          } else {
+            return <Redirect to={`/${nick}`} />;
+          }
+         }  
+        }/>
+        
+        <Route path="/:id" render = {(props) => 
+          <Chat onTextChange = {this.onTextChange} onMessageSubmit = {this.onMessageSubmit} state = {this.state} renderChat = {this.renderChat}/>
+        } />
+      </Router>
     );
-  }
-}
+  };
+};
 
 export default App;
