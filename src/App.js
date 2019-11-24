@@ -32,14 +32,21 @@ class App extends Component {
   };
   
   onNickSubmit = () => {
+    const id = window.location.pathname.slice(1);
     this.setState({ nick: nick });
+    socket.emit("login", id);
   };
-
+  
+  onSubmitLogin = () => {
+   this.setState({ nick: nick });
+   socket.emit("login", socket.id);
+ };
   // Function for sending message to chat server
   onMessageSubmit = () => {
     const response = {
       msg: this.state.msg,
-      nick: nick
+      nick: nick,
+      id: window.location.pathname.slice(1)
     };
     socket.emit("chat message", response);
     this.setState({ msg: "" });
@@ -61,15 +68,19 @@ class App extends Component {
       <Router>
         <Route exact path="/" render = {(props) => {
           if (!this.state.nick) {
+            return <Login onNickChange = {this.onNickChange} onNickSubmit = {this.onSubmitLogin}/>;
+          } else {
+            return <Redirect to={`/${socket.id}`} />;
+          }
+         }} />
+        
+        <Route path="/:id" render = {(props) => {
+          if (!this.state.nick) {
             return <Login onNickChange = {this.onNickChange} onNickSubmit = {this.onNickSubmit}/>;
           } else {
-            return <Redirect to={`/${nick}`} />;
+            return <Chat onTextChange = {this.onTextChange} onMessageSubmit = {this.onMessageSubmit} state = {this.state} renderChat = {this.renderChat}/>;
           }
          }  
-        }/>
-        
-        <Route path="/:id" render = {(props) => 
-          <Chat onTextChange = {this.onTextChange} onMessageSubmit = {this.onMessageSubmit} state = {this.state} renderChat = {this.renderChat}/>
         } />
       </Router>
     );

@@ -1,10 +1,10 @@
 import React from "react";
-function Login(props) {
-  return (
-    <div>
-      <input onChange={e => props.onNickChange(e)} />
-      <button onClick={props.onNickSubmit}>Ok</button>
+class Login extends React.Component {
+  render() {
+    return <div>
+      <input onChange={e => this.props.onNickChange(e)} />
+      <button onClick={() => this.props.onNickSubmit()}>Ok</button>
     </div>
-  )
+  }
 }
 export default Login;
