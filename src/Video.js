@@ -13,9 +13,9 @@ function Video(props) {
   };
   if (props.state.nick) {
     return (
-      <div>
-        <video id="local_video" autoPlay muted></video>
-        <button onClick={onStreaming}>Play</button>
+      <div className = "video">
+        <video className = "video-box" id="local_video" autoPlay muted></video>
+        <button className = "play-button button" onClick={onStreaming}>Video Call</button>
       </div>
     )
   } else {

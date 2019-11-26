@@ -3,11 +3,11 @@ function Chat(props) {
   
   if (props.state.nick) {
     return (
-      <div>
-        <input onChange={e => props.onTextChange(e)} value={props.state.msg} />
-        <button onClick={props.onMessageSubmit}>Send</button>
-        <div>{props.renderChat()}</div>
-        <div>{props.renderOnline()}</div>
+      <div className = "chat">
+        <input className = "input-message" onChange={e => props.onTextChange(e)} value={props.state.msg} />
+        <button className = "send-button button" onClick={props.onMessageSubmit}>Send</button>
+        <div className = "messages-list">{props.renderChat()}</div>
+        <div className = "online-list">{props.renderOnline()}</div>
       </div>
     )
   } else {
