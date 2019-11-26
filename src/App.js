@@ -6,8 +6,8 @@ import Login from "./Login";
 import Chat from "./Chat";
 import Video from "./Video";
 
-//const socket = io.connect("https://server-io-chat.herokuapp.com/");
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("https://server-io-chat.herokuapp.com/");
+//const socket = io.connect("http://localhost:5000");
 let nick;
 
 class App extends Component {
