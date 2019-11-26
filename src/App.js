@@ -16,6 +16,9 @@ class App extends Component {
   // I dont use .bind for functions below because i use "arrow functions"
   componentDidMount() {
     socket.on("chat message", (msg) => {
+      let nowDateObj = new Date();
+      let nowDate = nowDateObj.getHours() + ":" + nowDateObj.getMinutes() + ":" + nowDateObj.getSeconds();
+      msg.date = nowDate;
       this.setState({
         chat: [...this.state.chat, msg]
       });  
@@ -59,7 +62,7 @@ class App extends Component {
     const response = {
       msg: this.state.msg,
       nick: nick,
-      id: window.location.pathname.slice(1)
+      id: window.location.pathname.slice(1),
     };
     socket.emit("chat message", response);
     this.setState({ msg: "" });
@@ -68,10 +71,11 @@ class App extends Component {
   renderChat() {
     const { chat }  = this.state;
     //idx of each element of chat, need for generate key for each JSX tag
-    return chat.map(({ nick, msg }, idx) => (
+    return chat.map(({ nick, msg, date }, idx) => (
       <div key={idx}>
         <span style={{ color: "green" }}>{nick}: </span>
         <span>{msg}</span>
+        <span style={{ marginLeft: "30px" }}>{date}</span>
       </div>
     ));
   };
