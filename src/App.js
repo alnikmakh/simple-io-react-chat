@@ -4,6 +4,8 @@ import io from "socket.io-client";
 import { Redirect, Route, BrowserRouter as Router } from "react-router-dom";
 import Login from "./Login";
 import Chat from "./Chat";
+import Video from "./Video";
+
 //const socket = io.connect("https://server-io-chat.herokuapp.com/");
 const socket = io.connect("http://localhost:5000");
 let nick;
@@ -68,6 +70,10 @@ class App extends Component {
     this.setState({ msg: "" });
   };
   
+  onClickPlay = () => {
+    
+  };
+  
   renderChat() {
     const { chat }  = this.state;
     //idx of each element of chat, need for generate key for each JSX tag
@@ -104,9 +110,11 @@ class App extends Component {
         <Route path="/:id" render = {(props) => {
           if (!this.state.nick) {
             return <Login onNickChange = {this.onNickChange} onNickSubmit = {this.onNickSubmit}/>;
-          } else {
-            return <Chat onTextChange = {this.onTextChange} onMessageSubmit = {this.onMessageSubmit} state = {this.state} renderChat = {this.renderChat} users = {this.state.users} renderOnline = {this.renderOnline}/>;
           }
+          return <div>
+          <Chat onTextChange = {this.onTextChange} onMessageSubmit = {this.onMessageSubmit} state = {this.state} renderChat = {this.renderChat} users = {this.state.users} renderOnline = {this.renderOnline}/>;
+         <Video onClickPlay = {this.onClickPlay} stream = {this.state.stream} state = {this.state}/>
+         </div>
          }  
         } />
       </Router>
