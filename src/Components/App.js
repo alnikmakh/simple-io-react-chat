@@ -5,8 +5,8 @@ import { Redirect, Route, BrowserRouter as Router } from "react-router-dom";
 import Login from "./Login";
 import Chat from "./Chat";
 
-//const socket = io.connect("https://server-io-chat.herokuapp.com/"); //this string for deploy on heroku
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("https://server-io-chat.herokuapp.com/"); //this string for deploy on heroku
+//const socket = io.connect("http://localhost:5000");
 let nick;
 
 class App extends Component {
