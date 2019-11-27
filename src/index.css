@@ -15,20 +15,38 @@ body {
 
 .video-chat {
   display: flex;
-  align-items: center;
-  padding: 30px;
 }
 .chat {
   display: flex;
+  flex-direction: column;
+  
   flex-wrap: wrap;
   width: 400px;
-  align-items: center;
+
+  align-items: left;
   padding: 30px;
 }
-.messages-list {
+
+.chat span {
   width: 100%;
+}
+
+.input-message {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.messages-list {
+  margin-top: 20px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
   height: 200px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 1px solid grey;
 }
 
 .login {

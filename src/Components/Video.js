@@ -1,13 +1,14 @@
 import React from "react";
+
 function Video(props) {
   let mediaConstraints = {
     video: true,
     audio: true
   };
   const onStreaming = () => {
-    navigator.mediaDevices.getUserMedia(mediaConstraints).then((localStream) => {
+    navigator.mediaDevices.getUserMedia(mediaConstraints)
+    .then((localStream) => {
       document.getElementById("local_video").srcObject = localStream;
-      //localStream.getTracks().forEach(track => myPeerConnection.addTrack(track, localStream));
     })
     .catch((err) => {alert(err)});
   };
@@ -21,5 +22,6 @@ function Video(props) {
   } else {
     return null;
   }
-}
+};
+
 export default Video;
