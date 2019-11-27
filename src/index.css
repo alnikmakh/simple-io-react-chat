@@ -3,11 +3,77 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 100px;
+}
+
+.video-chat {
+  display: flex;
+}
+.chat {
+  display: flex;
+  flex-direction: column;
+  
+  flex-wrap: wrap;
+  width: 400px;
+
+  align-items: left;
+  padding: 30px;
+}
+
+.chat span {
+  width: 100%;
+}
+
+.input-message {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.messages-list {
+  margin-top: 20px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 1px solid grey;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+
+.login-input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
